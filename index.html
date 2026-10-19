@@ -3,38 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FLETES: Gipsy Danger</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
     <link rel="stylesheet" href="estilo.css">
-
-    <!-- agregar router html-->
-    
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <script src="app.js"></script>
+    <script src="app.js" defer></script>
+    <script src="https://unpkg.com/@shaun/alpinejs-router@1.x.x/dist/router.min.js" defer></script>
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <title>Sistema de fletes</title>
 </head>
-<body>
-    <div id="app" x-data="contexto" x-init="datos_iniciales">
-        <header>
-            <h1>FLETES: Gipsy Danger</h1>
-            <button>Inicio</button>
-            <button>Unidades</button>
-            <button>Choferes</button>
-            <button>Nuevo Flete</button>
-        </header>
-        <div id="principal">
-            <main>
-                
-                <!--enrutar con aplpne-router-->
-                
-            </main>
-        </div>
-        <footer>
-            <pre>
-                Gipsy es Analógico. Nuclear
-
-                Jazz Lalo Ian Juan
-            </pre>
-        </footer>
-    </div>
+<body x-data="contexto('home')">
+    <aside>
+        <button>Inicio</button>
+        <button>Unidades</a>
+        <button>Choferes</button>
+        <button>Clientes</button>
+        <button>Fletes</button>
+    
+    </aside>
+    <main>
+       
+    </main>
 </body>
 </html>
