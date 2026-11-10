@@ -1,7 +1,8 @@
-# Fletes_GD
-Student project of a fletes service web
-hola
+# Fletes Gipsy Danger
 
+Proyecto Fletes Gipsy Danger
 
-
-hhhhhhhhhhhhhh
+->Vanessa Jazmin Basurto Parra
+->Eduardo Sealtiel Cuellar Sanchez
+->Ian Fernando Gonzalez Aviña
+->Juan Manuel Aguilar Delgado
