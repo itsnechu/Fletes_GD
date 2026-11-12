@@ -12,15 +12,20 @@
 </head>
 <body x-data="contexto('home')">
     <aside>
-        <button>Inicio</button>
-        <button>Unidades</a>
-        <button>Choferes</button>
-        <button>Clientes</button>
-        <button>Fletes</button>
-    
+        <a x-link href="/"><button>Inicio</button></a>
+        <a x-link href="/unidades"><button>Unidades</button></a>
+        <a x-link href="/choferes"><button>Choferes</button></a>
+        <a x-link href="/clientes"><button>Clientes</button></a>
+        <a x-link href="/fletes"><button>Fletes</button></a>
     </aside>
     <main>
-       
+        <template x-route="/">
+            <p>Inicio</p>
+        </template>
+        <template x-route="/unidades" template="/unidadesView.html"></template>
+        <template x-route="/choferes" template="/choferesView.html"></template>
+        <template x-route="/clientes" template="/clientesView.html"></template>
+        <template x-route="/fletes" template="/fletesView.html"></template>
     </main>
 </body>
 </html>
