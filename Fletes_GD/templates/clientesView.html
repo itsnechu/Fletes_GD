@@ -1,0 +1,41 @@
+<div>
+    <h2>Gestión de Clientes</h2>
+
+    <form @submit.prevent="agregar_cliente">
+        <fieldset>
+            <legend>Nuevo Cliente</legend>
+            <label>Razón Social:
+                <input type="text" x-model="nuevo_cliente.razon_social" required>
+            </label>
+            <label>RFC:
+                <input type="text" x-model="nuevo_cliente.rfc" required>
+            </label>
+            <label>Email:
+                <input type="email" x-model="nuevo_cliente.email" required>
+            </label>
+            <button type="submit">Guardar Cliente</button>
+        </fieldset>
+    </form>
+
+    <h3>Directorio de Clientes</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Razón Social</th>
+                <th>RFC</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            <template x-for="c in clientes" :key="c.id">
+                <tr>
+                    <td x-text="c.id"></td>
+                    <td x-text="c.razon_social"></td>
+                    <td x-text="c.rfc"></td>
+                    <td x-text="c.email"></td>
+                </tr>
+            </template>
+        </tbody>
+    </table>
+</div>

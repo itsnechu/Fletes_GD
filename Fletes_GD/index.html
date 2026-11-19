@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+    <link rel="stylesheet" href="css/estilo.css">
+    <script src="js/app.js" defer></script>
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <title>FLETES GIPSY DANGER</title>
+</head>
+<body x-data="contexto('home')">
+    <aside>
+        <button @click="vista = 'home'">Inicio</button>
+        <button @click="vista = 'unidades'">Unidades</button>
+        <button @click="vista = 'choferes'">Choferes</button>
+        <button @click="vista = 'clientes'">Clientes</button>
+        <button @click="vista = 'fletes'">Fletes</button>
+    </aside>
+    <main>
+        <div x-show="vista === 'home'">
+            <h2>FLETES GIPSY DANGER</h2>
+            <p>Gipsy es analógico, nuclear.</p>
+        </div>
+
+        <div x-show="vista === 'unidades'">
+            <h2>Gestión de Unidades</h2>
+            <form @submit.prevent="agregar_unidad">
+                <fieldset>
+                    <legend>Nueva Unidad</legend>
+                    <label>Placa: <input type="text" x-model="nueva_unidad.placa" required></label>
+                    <label>Marca: <input type="text" x-model="nueva_unidad.marca" required></label>
+                    <label>Modelo: <input type="text" x-model="nueva_unidad.modelo" required></label>
+                    <label>Año: <input type="number" x-model="nueva_unidad.year" required></label>
+                    <button type="submit">Guardar Unidad</button>
+                </fieldset>
+            </form>
+            <h3>Flota Actual</h3>
+            <table>
+                <thead><tr><th>ID</th><th>Placa</th><th>Marca</th><th>Modelo</th><th>Año</th></tr></thead>
+                <tbody>
+                    <template x-for="u in unidades" :key="u.id">
+                        <tr><td x-text="u.id"></td><td x-text="u.placa"></td><td x-text="u.marca"></td><td x-text="u.modelo"></td><td x-text="u.year"></td></tr>
+                    </template>
+                </tbody>
+            </table>
+        </div>
+
+        <div x-show="vista === 'choferes'">
+            <h2>Gestión de Choferes</h2>
+            <form @submit.prevent="agregar_chofer">
+                <fieldset>
+                    <legend>Nuevo Chofer</legend>
+                    <label>Nombre: <input type="text" x-model="nuevo_chofer.nombre" required></label>
+                    <label>Licencia: <input type="text" x-model="nuevo_chofer.licencia" required></label>
+                    <button type="submit">Guardar Chofer</button>
+                </fieldset>
+            </form>
+            <h3>Personal Operativo</h3>
+            <table>
+                <thead><tr><th>ID</th><th>Nombre</th><th>Licencia</th></tr></thead>
+                <tbody>
+                    <template x-for="c in choferes" :key="c.id">
+                        <tr><td x-text="c.id"></td><td x-text="c.nombre"></td><td x-text="c.licencia"></td></tr>
+                    </template>
+                </tbody>
+            </table>
+        </div>
+
+        <div x-show="vista === 'clientes'">
+            <h2>Gestión de Clientes</h2>
+            <form @submit.prevent="agregar_cliente">
+                <fieldset>
+                    <legend>Nuevo Cliente</legend>
+                    <label>Razón Social: <input type="text" x-model="nuevo_cliente.razon_social" required></label>
+                    <label>RFC: <input type="text" x-model="nuevo_cliente.rfc" required></label>
+                    <label>Email: <input type="email" x-model="nuevo_cliente.email" required></label>
+                    <button type="submit">Guardar Cliente</button>
+                </fieldset>
+            </form>
+            <h3>Directorio de Clientes</h3>
+            <table>
+                <thead><tr><th>ID</th><th>Razón Social</th><th>RFC</th><th>Email</th></tr></thead>
+                <tbody>
+                    <template x-for="c in clientes" :key="c.id">
+                        <tr><td x-text="c.id"></td><td x-text="c.razon_social"></td><td x-text="c.rfc"></td><td x-text="c.email"></td></tr>
+                    </template>
+                </tbody>
+            </table>
+        </div>
+
+        <div x-show="vista === 'fletes'">
+            <h2>Gestión de Fletes</h2>
+            <form @submit.prevent="agregar_flete">
+                <fieldset>
+                    <legend>Nuevo Flete</legend>
+                    <label>Origen: <input type="text" x-model="nuevo_flete.origen" required></label>
+                    <label>Destino: <input type="text" x-model="nuevo_flete.destino" required></label>
+                    <label>Cliente:
+                        <select x-model="nuevo_flete.cliente_id" required>
+                            <option value="">Seleccione...</option>
+                            <template x-for="c in clientes" :key="c.id"><option :value="c.id" x-text="c.razon_social"></option></template>
+                        </select>
+                    </label>
+                    <label>Chofer:
+                        <select x-model="nuevo_flete.chofer_id">
+                            <option value="">Seleccione...</option>
+                            <template x-for="ch in choferes" :key="ch.id"><option :value="ch.id" x-text="ch.nombre"></option></template>
+                        </select>
+                    </label>
+                    <label>Unidad:
+                        <select x-model="nuevo_flete.unidad_id">
+                            <option value="">Seleccione...</option>
+                            <template x-for="u in unidades" :key="u.id"><option :value="u.id" x-text="u.placa"></option></template>
+                        </select>
+                    </label>
+                    <label>Tarifa ($): <input type="number" step="0.01" x-model="nuevo_flete.tarifa" required></label>
+                    <button type="submit">Guardar Flete</button>
+                </fieldset>
+            </form>
+            <h3>Historial de Fletes</h3>
+            <table>
+                <thead><tr><th>ID</th><th>Ruta</th><th>Cliente</th><th>Chofer</th><th>Estatus</th><th>Tarifa</th><th>Acciones</th></tr></thead>
+                <tbody>
+                    <template x-for="f in fletes" :key="f.id">
+                        <tr>
+                            <td x-text="f.id"></td>
+                            <td><strong x-text="f.origen"></strong> &rarr; <span x-text="f.destino"></span></td>
+                            <td x-text="f.cliente"></td>
+                            <td x-text="f.chofer || 'Sin asignar'"></td>
+                            <td>
+                                <select @change="cambiar_estatus(f.id, $event.target.value)">
+                                    <template x-for="est in estatus_validos">
+                                        <option :value="est" :selected="f.estatus === est" x-text="est"></option>
+                                    </template>
+                                </select>
+                            </td>
+                            <td x-text="formato_dinero(f.tarifa)"></td>
+                            <td><button @click="eliminar_flete(f.id)">Eliminar</button></td>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+        </div>
+    </main>
+</body>
+</html>
