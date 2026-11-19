@@ -1,0 +1,83 @@
+<div>
+    <h2>Gestión de Fletes</h2>
+
+    <form @submit.prevent="agregar_flete">
+        <fieldset>
+            <legend>Nuevo Flete</legend>
+            <label>Origen:
+                <input type="text" x-model="nuevo_flete.origen" required>
+            </label>
+            <label>Destino:
+                <input type="text" x-model="nuevo_flete.destino" required>
+            </label>
+            <label>Cliente:
+                <select x-model="nuevo_flete.cliente_id" required>
+                    <option value="">Seleccione un cliente...</option>
+                    <template x-for="c in clientes" :key="c.id">
+                        <option :value="c.id" x-text="c.razon_social"></option>
+                    </template>
+                </select>
+            </label>
+            <label>Chofer:
+                <select x-model="nuevo_flete.chofer_id">
+                    <option value="">Seleccione un chofer...</option>
+                    <template x-for="ch in choferes" :key="ch.id">
+                        <option :value="ch.id" x-text="ch.nombre"></option>
+                    </template>
+                </select>
+            </label>
+            <label>Unidad:
+                <select x-model="nuevo_flete.unidad_id">
+                    <option value="">Seleccione una unidad...</option>
+                    <template x-for="u in unidades" :key="u.id">
+                        <option :value="u.id" x-text="u.placa + ' - ' + u.marca"></option>
+                    </template>
+                </select>
+            </label>
+            <label>Tarifa ($):
+                <input type="number" step="0.01" x-model="nuevo_flete.tarifa" required>
+            </label>
+            <button type="submit">Guardar Flete</button>
+        </fieldset>
+    </form>
+
+    <h3>Historial de Fletes Operativos</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Origen / Destino</th>
+                <th>Cliente</th>
+                <th>Chofer</th>
+                <th>Unidad</th>
+                <th>Estatus</th>
+                <th>Tarifa</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <template x-for="f in fletes" :key="f.id">
+                <tr>
+                    <td x-text="f.id"></td>
+                    <td>
+                        <strong x-text="f.origen"></strong> &rarr; <span x-text="f.destino"></span>
+                    </td>
+                    <td x-text="f.cliente"></td>
+                    <td x-text="f.chofer || 'Sin asignar'"></td>
+                    <td x-text="f.unidad || 'Sin asignar'"></td>
+                    <td>
+                        <select @change="cambiar_estatus(f.id, $event.target.value)">
+                            <template x-for="est in estatus_validos">
+                                <option :value="est" :selected="f.estatus === est" x-text="est"></option>
+                            </template>
+                        </select>
+                    </td>
+                    <td x-text="formato_dinero(f.tarifa)"></td>
+                    <td>
+                        <button @click="eliminar_flete(f.id)" style="background-color: #d9534f; color: white; border: none; padding: 4px 8px; border-radius: 4px;">Eliminar</button>
+                    </td>
+                </tr>
+            </template>
+        </tbody>
+    </table>
+</div>

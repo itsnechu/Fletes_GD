@@ -1,6 +1,7 @@
 <?php
 header('Content-Type: application/json');
-$db = new SQLite3('database.sqlite');
+
+$db = new SQLite3('../database.sqlite');
 
 $metodo = $_SERVER['REQUEST_METHOD'];
 
